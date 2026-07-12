@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#070b0d">
+  <meta name="description" content="左涛，三维设计师与视觉设计师个人作品集。">
+  <title>左涛 ZUO TAO - 3D Artist</title>
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+  <canvas id="color-bends" aria-hidden="true"></canvas>
+  <header class="nav">
+    <div class="nav-side nav-left">
+      <a class="brand" href="#home">ZT<span>®</span></a>
+      <nav class="nav-pill">
+        <a class="nav-item active" href="#home">首页</a>
+        <a class="nav-item" href="#works">作品</a>
+        <a class="nav-item" href="#about">关于我</a>
+        <a class="nav-item" href="#contact">联系我</a>
+      </nav>
+    </div>
+    <div class="nav-side nav-right">
+      <span class="availability"><i></i> AVAILABLE FOR WORK</span>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" data-src="https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/hero-background.webm" data-mobile-src="https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/hero-background.webm" aria-hidden="true"></video>
+    <div class="hero-grid"></div>
+    <div class="hero-frame">
+      <video class="hero-main-video" autoplay muted loop playsinline preload="auto" data-src="https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/hero-desktop.webm" data-mobile-src="https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/hero-mobile.webm"></video>
+      <div class="hero-shade"></div>
+      <div class="frame-corner fc-tl"></div><div class="frame-corner fc-tr"></div><div class="frame-corner fc-bl"></div><div class="frame-corner fc-br"></div>
+      <div class="hero-dots"><i></i><i></i><i></i><i></i></div>
+      <div class="hero-cross cross-a">×</div><div class="hero-cross cross-b">+</div>
+    </div>
+    <div class="hero-top-decor decor-left"><span>[ SHOWREEL / 2026 ]</span><i></i><b>CGI · VISUAL · MOTION</b></div>
+    <div class="hero-top-decor decor-center"><i></i><span>ZT / 001</span><i></i></div>
+    <div class="hero-top-decor decor-right"><b>LESS, BUT BETTER.</b><i></i><span>30°15′N / 120°09′E</span></div>
+    <div class="hero-side-decor side-left">
+      <span class="side-index">01 - 06</span><i class="side-line"></i><b>SELECTED<br>SHOWREEL</b>
+      <div class="side-coord">X 030.15<br>Y 120.09</div><div class="side-target"><i></i></div>
+    </div>
+    <div class="hero-side-decor side-right">
+      <span class="side-index">ZT / PORTFOLIO</span><i class="side-line"></i><b>VISUAL<br>ARCHIVE</b>
+      <div class="side-coord">FRAME 001<br>PLAY / LOOP</div><div class="side-dots"><i></i><i></i><i></i></div>
+    </div>
+    <div class="hero-bottom-glow" aria-hidden="true"></div>
+    <div class="hero-display-type" aria-label="Zuo Tao CGI Artist">
+      <span class="display-solid">ZUO TAO</span>
+      <span class="display-outline">PORTFOLIO</span>
+      <span class="display-outline display-extra">CGI MOTION</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="categories" id="works">
+      <div class="section-label"><span>02</span><span>SELECTED FIELDS / 作品分类</span><span class="line"></span></div>
+      <div class="category-intro">
+        <h2><span>WORK</span><em>INDEX</em></h2>
+        <span class="see-more">SELECTED ARCHIVE</span>
+      </div>
+      <div class="category-list" id="category-list"></div>
+    </section>
+
+    <section class="about-teaser" id="about">
+      <div class="about-copy">
+        <div class="section-label light"><span>03</span><span>ABOUT / 关于我</span><span class="line"></span></div>
+        <p class="quote">为品牌与娱乐体验<br>塑造<em>有记忆点</em>的视觉。</p>
+        <p class="body">我是左涛，一名拥有 7 年行业经验的三维设计师。专注于高品质三维影像的全流程制作，从资产与材质，到灯光渲染与后期合成，在视觉品质与商业目标之间寻找准确的平衡。</p>
+        <div class="about-stats"><div><b>7<sup>+</sup></b><span>年设计经验<br>YEARS EXPERIENCE</span></div><div><b>20<sup>+</sup></b><span>商业项目<br>COMMERCIAL PROJECTS</span></div></div>
+        <p class="about-capability">C4D · BLENDER · MAYA · NUKE · AFTER EFFECTS · REDSHIFT · OCTANE · ARNOLD</p>
+        <button class="text-link" id="about-button" type="button">MORE ABOUT ME ↗</button>
+      </div>
+      <div class="portrait"><img src="./个人头像.jpg" alt="左涛个人头像"><span>ZT / PORTRAIT / 2026</span></div>
+    </section>
+  </main>
+
+  <footer class="contact" id="contact">
+    <div class="contact-top">
+      <span class="contact-label"><b>04</b><span>CONTACT</span><i></i></span>
+      <span>OPEN FOR OPPORTUNITIES · 可合作 / 2026</span>
+    </div>
+    <div class="contact-layout">
+      <div class="contact-left">
+        <p class="contact-kicker">LET'S CONNECT / 欢迎联系</p>
+        <h2><span>CONTACT</span> <em>ME</em></h2>
+        <div class="contact-notes">
+          <p><b>LOCATION / 所在地</b><span>杭州 · 支持远程协作<br>Hangzhou / Remote</span></p>
+          <p><b>AVAILABLE / 合作方式</b><span>商业接单 · 全职机会 · 品牌合作<br>Freelance · Full-time · Collaboration</span></p>
+        </div>
+      </div>
+      <div class="contact-formlike" aria-label="Contact information">
+        <div class="field-row"><label><i>人</i>Name / 姓名</label><span>左涛 Zuo Tao / 三维设计师</span></div>
+        <div class="field-row"><label><i>•</i>Service / 服务方向</label><span>三维 CG · 动态视觉 · 游戏宣传片 · 产品广告<br>CGI · Motion Visual · Game Cinematic · Product Film</span></div>
+        <a class="field-row" href="mailto:3095994766@qq.com"><label><i>@</i>Email / 邮箱</label><span>3095994766@qq.com ↗</span></a>
+        <a class="field-row" href="tel:15721502040"><label><i>☎</i>Phone / 电话</label><span>157 2150 2040</span></a>
+        <div class="field-row"><label><i>↗</i>Project / 项目沟通</label><span>可沟通品牌广告、游戏 CG、产品影像与视觉实验类项目。<br>Tell me about your brand, game, product or visual goal.</span></div>
+      </div>
+    </div>
+    <div class="contact-bottom">
+      <div><span>WECHAT / 微信</span><b>Winners_Tao</b></div>
+      <div class="social-links"><span>SOCIAL / 作品平台</span><b><a href="https://www.zcool.com.cn/u/15006896" target="_blank" rel="noreferrer">ZCOOL 站酷</a> / <a href="https://www.behance.net/Tao3095994766" target="_blank" rel="noreferrer">BEHANCE</a></b></div>
+      <a class="back" href="#home">BACK TO TOP ↗</a>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay">
+    <button class="overlay-close" id="overlay-close">← 返回 / ESC</button>
+    <div id="overlay-content"></div>
+  </div>
+  <script src="./src/site.js"></script>
+  <script src="./src/color-bends.js"></script>
+</body>
+</html>

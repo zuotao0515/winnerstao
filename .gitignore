@@ -1,0 +1,14 @@
+# Local Netlify folder
+.netlify
+
+# Generated build output
+dist
+node_modules/
+.pnpm-store/
+.agents/
+
+# Videos are served from Cloudflare R2
+*.mp4
+*.m4v
+*.webm
+r2-upload/
