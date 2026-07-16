@@ -233,7 +233,19 @@ const revealSelectors = [
   ".about-hero h1",
   ".about-hero img",
   ".bio h2",
-  ".bio p"
+  ".bio p",
+  ".about-detail-hero .about-kicker",
+  ".about-detail-title",
+  ".about-detail-portrait",
+  ".about-detail-stats > div",
+  ".about-block-head",
+  ".about-story-copy",
+  ".pipeline-item",
+  ".tool-group",
+  ".timeline-item",
+  ".client-intro",
+  ".client-group",
+  ".about-cta"
 ].join(",");
 
 function getRevealDelay(element) {
@@ -246,7 +258,11 @@ function getRevealDelay(element) {
     ".contact-notes",
     ".contact-formlike",
     ".overlay-project-grid",
-    ".gallery"
+    ".gallery",
+    ".pipeline-grid",
+    ".tool-grid",
+    ".timeline-list",
+    ".client-columns"
   ];
   if (!parent || !staggerGroups.some(selector => parent.matches(selector))) return 0;
   return [...parent.children].indexOf(element) * 90;
@@ -316,19 +332,35 @@ function loadHeroVideos() {
 
 const heroMainVideo = document.querySelector(".hero-main-video");
 const soundToggle = document.querySelector("#site-sound");
-let soundEnabled = false;
+let soundEnabled = localStorage.getItem("portfolioSound") !== "off";
+let soundNeedsGesture = false;
 
-function syncShowreelAudio() {
+async function syncShowreelAudio() {
   if (!heroMainVideo || !soundToggle) return;
   const overlayIsOpen = overlay.classList.contains("open");
   const shouldPlaySound = soundEnabled && !overlayIsOpen && !document.hidden;
-  heroMainVideo.muted = !shouldPlaySound;
   heroMainVideo.volume = 0.65;
-  soundToggle.classList.toggle("is-on", shouldPlaySound);
-  soundToggle.setAttribute("aria-pressed", String(shouldPlaySound));
-  soundToggle.setAttribute("aria-label", shouldPlaySound ? "关闭背景音乐" : "开启背景音乐");
-  soundToggle.querySelector(".sound-label").textContent = shouldPlaySound ? "SOUND ON" : "SOUND OFF";
-  if (shouldPlaySound) heroMainVideo.play().catch(() => {});
+  soundNeedsGesture = false;
+
+  if (shouldPlaySound) {
+    heroMainVideo.muted = false;
+    try {
+      await heroMainVideo.play();
+    } catch {
+      soundNeedsGesture = true;
+      heroMainVideo.muted = true;
+      heroMainVideo.play().catch(() => {});
+    }
+  } else {
+    heroMainVideo.muted = true;
+  }
+
+  const soundIsPlaying = shouldPlaySound && !soundNeedsGesture && !heroMainVideo.muted;
+  soundToggle.classList.toggle("is-on", soundIsPlaying);
+  soundToggle.classList.toggle("is-blocked", shouldPlaySound && soundNeedsGesture);
+  soundToggle.setAttribute("aria-pressed", String(soundIsPlaying));
+  soundToggle.setAttribute("aria-label", soundNeedsGesture ? "点击开启背景音乐" : soundIsPlaying ? "关闭背景音乐" : "开启背景音乐");
+  soundToggle.querySelector(".sound-label").textContent = soundNeedsGesture ? "TAP FOR SOUND" : soundIsPlaying ? "SOUND ON" : "SOUND OFF";
 }
 
 function setSoundEnabled(enabled, remember = true) {
@@ -347,7 +379,7 @@ function unlockShowreelAudio(event) {
 
 soundToggle.addEventListener("click", event => {
   event.stopPropagation();
-  setSoundEnabled(!soundEnabled);
+  setSoundEnabled(soundNeedsGesture ? true : !soundEnabled);
 });
 addEventListener("pointerdown", unlockShowreelAudio, true);
 addEventListener("keydown", unlockShowreelAudio, true);
@@ -548,12 +580,120 @@ function openAbout(options = {}) {
   overlayLevel = "about";
   currentCategory = "";
   content.innerHTML = `
-    <section class="about-hero"><span>ABOUT / ZUO TAO</span><h1>MAKING IDEAS<br><em>VISIBLE.</em></h1><img src="./个人头像.jpg" alt="左涛个人头像"></section>
-    <section class="bio"><h2>用三维视觉连接<br>创意、技术与商业。</h2><p>拥有 7 年设计行业经验，熟悉三维动画全流程。擅长资产制作、材质灯光、渲染与后期合成，能够从概念阶段持续推进至高品质交付。</p></section>
+    <section class="about-detail-hero">
+      <span class="about-kicker">ABOUT / ZUO TAO · 3D DESIGNER</span>
+      <h1 class="about-detail-title">MAKING IDEAS<br><em>VISIBLE.</em></h1>
+      <figure class="about-detail-portrait">
+        <img src="./个人头像.jpg" alt="左涛个人头像">
+        <figcaption>ZT / PORTRAIT / 2026</figcaption>
+      </figure>
+      <div class="about-detail-stats">
+        <div><b>07<sup>+</sup></b><span>YEARS OF EXPERIENCE<br>设计行业经验</span></div>
+        <div><b>05</b><span>CORE PRODUCTION STAGES<br>核心制作环节</span></div>
+        <div><b>11</b><span>TOOLS & RENDER ENGINES<br>软件与渲染工具</span></div>
+      </div>
+    </section>
+
+    <section class="about-story about-section-dark">
+      <div class="about-block-head"><span>01</span><p>PROFILE / 个人定位</p><i></i></div>
+      <div class="about-story-copy">
+        <h2>用三维视觉连接<br><em>创意、技术与商业。</em></h2>
+        <div>
+          <p>我是一名拥有 7 年设计行业经验的三维设计师。从电商与品牌视觉出发，逐步深入三维动画和高品质影像制作，形成了兼顾视觉表达、技术实现与商业目标的工作方式。</p>
+          <p>能够从前期概念、资产准备、材质灯光、动画 Layout、渲染到后期合成持续推进项目，并在高压周期中保持稳定的执行效率与交付质量。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-pipeline about-section-warm">
+      <div class="about-block-head"><span>02</span><p>CAPABILITIES / 我能完成的环节</p><i></i></div>
+      <div class="pipeline-grid">
+        <article class="pipeline-item"><span>01</span><h3>概念与视觉方向</h3><p>理解业务需求与脚本分镜，整理概念氛围和视觉参考，建立画面风格与项目基调。</p><b>CONCEPT · LOOK DEV</b></article>
+        <article class="pipeline-item"><span>02</span><h3>资产与场景制作</h3><p>场景、道具和基础资产制作，包括模型、UV、材质贴图及画面所需的视觉细节。</p><b>MODELING · UV · TEXTURE</b></article>
+        <article class="pipeline-item"><span>03</span><h3>材质灯光与渲染</h3><p>结合概念图完成材质、灯光、渲染测试和品质控制，保证风格与创意意图一致。</p><b>SHADING · LIGHTING · RENDER</b></article>
+        <article class="pipeline-item"><span>04</span><h3>Layout 与动态设计</h3><p>依据脚本和分镜完成基础 Layout、镜头构成、动画节奏与小型视觉特效。</p><b>LAYOUT · MOTION · FX</b></article>
+        <article class="pipeline-item"><span>05</span><h3>后期合成与交付</h3><p>完成多通道合成、画面整合、色彩与细节优化，让最终影像达到稳定的商业交付标准。</p><b>COMPOSITING · DELIVERY</b></article>
+      </div>
+    </section>
+
+    <section class="about-tools about-section-dark">
+      <div class="about-block-head"><span>03</span><p>TOOLKIT / 软件与技术</p><i></i></div>
+      <div class="tool-grid">
+        <article class="tool-group"><span>3D / 三维制作</span><h3>Cinema 4D<br>Blender<br>Maya</h3></article>
+        <article class="tool-group"><span>RENDER / 渲染器</span><h3>Redshift<br>Octane Render<br>Arnold</h3></article>
+        <article class="tool-group"><span>TEXTURE / 材质</span><h3>Substance<br>Painter</h3></article>
+        <article class="tool-group"><span>POST / 后期</span><h3>Nuke<br>After Effects<br>Photoshop</h3></article>
+      </div>
+    </section>
+
+    <section class="about-experience about-section-dark">
+      <div class="about-block-head"><span>04</span><p>EXPERIENCE / 工作经历</p><i></i></div>
+      <div class="timeline-list">
+        <article class="timeline-item"><time>2021.11 - 2024.06</time><div><h3>一只（深圳）信息科技有限公司</h3><b>三维动画渲染师</b></div><p>主导项目全周期，从资产准备到后期合成；负责场景道具、UV 与材质、灯光渲染、基础 Layout 和小型特效动画，推动高品质成果交付。</p></article>
+        <article class="timeline-item"><time>2020.09 - 2021.09</time><div><h3>浙江世界贸易中心广告有限公司</h3><b>视觉设计师</b></div><p>参与九阳品牌视觉、电商详情与活动页面设计，将摄影、三维渲染和微动态内容结合，支持品牌传播与销售转化。</p></article>
+        <article class="timeline-item"><time>2019.06 - 2020.08</time><div><h3>风林牧火（杭州）电子商务有限公司</h3><b>视觉设计师</b></div><p>负责店铺整体视觉、产品详情页与主图设计，并与建模团队协作完成动态内容设计和渲染，同时参与团队技术分享。</p></article>
+      </div>
+    </section>
+
+    <section class="about-clients about-section-warm">
+      <div class="about-block-head"><span>05</span><p>SELECTED CLIENTS / 服务品牌与项目</p><i></i></div>
+      <div class="client-intro">
+        <h2>SELECTED BRANDS<br><em>& GAME WORLDS.</em></h2>
+        <p>参与多个头部品牌、游戏与娱乐 IP 的三维视觉及动态影像项目，在不同品牌语境中建立兼具识别度、品质感与商业价值的视觉表达。</p>
+      </div>
+      <div class="client-columns">
+        <article class="client-group client-group-games">
+          <header><span>01</span><div><h3>游戏与娱乐 IP</h3><p>GAME &amp; ENTERTAINMENT</p></div></header>
+          <ol class="client-list">
+            <li><span>01</span><b>拳头游戏 · 英雄联盟</b><em>RIOT GAMES · LEAGUE OF LEGENDS</em></li>
+            <li><span>02</span><b>腾讯游戏</b><em>TENCENT GAMES</em></li>
+            <li><span>03</span><b>网易游戏</b><em>NETEASE GAMES</em></li>
+            <li><span>04</span><b>王者荣耀</b><em>HONOR OF KINGS</em></li>
+            <li><span>05</span><b>决胜巅峰</b><em>MOBILE LEGENDS: BANG BANG</em></li>
+            <li><span>06</span><b>和平精英</b><em>GAME FOR PEACE</em></li>
+            <li><span>07</span><b>金铲铲之战</b><em>BATTLE OF GOLDEN SPATULA</em></li>
+            <li><span>08</span><b>三角洲行动</b><em>DELTA FORCE</em></li>
+            <li><span>09</span><b>QQ 飞车</b><em>QQ SPEED</em></li>
+          </ol>
+        </article>
+        <article class="client-group client-group-platforms">
+          <header><span>02</span><div><h3>科技与数字平台</h3><p>TECHNOLOGY &amp; DIGITAL PLATFORM</p></div></header>
+          <ol class="client-list">
+            <li><span>01</span><b>阿里巴巴</b><em>ALIBABA</em></li>
+            <li><span>02</span><b>字节跳动</b><em>BYTEDANCE</em></li>
+            <li><span>03</span><b>OPPO</b><em>SMART DEVICES</em></li>
+            <li><span>04</span><b>天猫</b><em>TMALL</em></li>
+            <li><span>05</span><b>快手</b><em>KUAISHOU</em></li>
+            <li><span>06</span><b>POCO</b><em>SMARTPHONE</em></li>
+          </ol>
+        </article>
+        <article class="client-group client-group-brands">
+          <header><span>03</span><div><h3>消费与生活方式</h3><p>CONSUMER &amp; LIFESTYLE</p></div></header>
+          <ol class="client-list">
+            <li><span>01</span><b>海信</b><em>HISENSE</em></li>
+            <li><span>02</span><b>泡泡玛特</b><em>POP MART</em></li>
+            <li><span>03</span><b>蒙牛</b><em>MENGNIU</em></li>
+            <li><span>04</span><b>追觅</b><em>DREAME</em></li>
+            <li><span>05</span><b>苏泊尔</b><em>SUPOR</em></li>
+            <li><span>06</span><b>九阳</b><em>JOYOUNG</em></li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="about-cta">
+      <span>AVAILABLE FOR PROJECTS / FULL-TIME</span>
+      <h2>LET'S MAKE<br><em>IDEAS VISIBLE.</em></h2>
+      <div><a href="#contact" data-about-contact>CONTACT ME ↗</a></div>
+    </section>
   `;
   showOverlay();
   if (options.push !== false) pushOverlayState("about");
   prepareReveals(content);
+  content.querySelector("[data-about-contact]").addEventListener("click", event => {
+    closeOverlay();
+    jumpToSection(event, "#contact");
+  });
 }
 
 document.querySelector("#about-button").addEventListener("click", event => {
@@ -690,5 +830,7 @@ renderCats();
 closeOverlay();
 prepareReveals(document);
 loadHeroVideos();
+heroMainVideo?.addEventListener("canplay", syncShowreelAudio, { once:true });
+syncShowreelAudio();
 
 
