@@ -314,6 +314,45 @@ function loadHeroVideos() {
   });
 }
 
+const heroMainVideo = document.querySelector(".hero-main-video");
+const soundToggle = document.querySelector("#site-sound");
+let soundEnabled = false;
+
+function syncShowreelAudio() {
+  if (!heroMainVideo || !soundToggle) return;
+  const overlayIsOpen = overlay.classList.contains("open");
+  const shouldPlaySound = soundEnabled && !overlayIsOpen && !document.hidden;
+  heroMainVideo.muted = !shouldPlaySound;
+  heroMainVideo.volume = 0.65;
+  soundToggle.classList.toggle("is-on", shouldPlaySound);
+  soundToggle.setAttribute("aria-pressed", String(shouldPlaySound));
+  soundToggle.setAttribute("aria-label", shouldPlaySound ? "关闭背景音乐" : "开启背景音乐");
+  soundToggle.querySelector(".sound-label").textContent = shouldPlaySound ? "SOUND ON" : "SOUND OFF";
+  if (shouldPlaySound) heroMainVideo.play().catch(() => {});
+}
+
+function setSoundEnabled(enabled, remember = true) {
+  soundEnabled = enabled;
+  if (remember) localStorage.setItem("portfolioSound", enabled ? "on" : "off");
+  syncShowreelAudio();
+}
+
+function unlockShowreelAudio(event) {
+  if (event.target.closest && event.target.closest("#site-sound")) return;
+  if (localStorage.getItem("portfolioSound") === "off") return;
+  setSoundEnabled(true, false);
+  removeEventListener("pointerdown", unlockShowreelAudio, true);
+  removeEventListener("keydown", unlockShowreelAudio, true);
+}
+
+soundToggle.addEventListener("click", event => {
+  event.stopPropagation();
+  setSoundEnabled(!soundEnabled);
+});
+addEventListener("pointerdown", unlockShowreelAudio, true);
+addEventListener("keydown", unlockShowreelAudio, true);
+document.addEventListener("visibilitychange", syncShowreelAudio);
+
 function renderCats() {
   catList.innerHTML = cats.map((cat, i) => `
     <button class="category-card cat-${i + 1}" data-cat="${cat.name}">
@@ -426,6 +465,7 @@ function closeOverlay() {
   overlay.style.opacity = "";
   document.body.style.overflow = "";
   content.innerHTML = "";
+  syncShowreelAudio();
 }
 
 function performOverlayBack() {
@@ -457,6 +497,7 @@ function showOverlay() {
   overlay.style.opacity = "1";
   document.body.style.overflow = "hidden";
   overlay.scrollTop = 0;
+  syncShowreelAudio();
 }
 
 function closeLightbox() {

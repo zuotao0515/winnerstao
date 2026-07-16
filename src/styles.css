@@ -152,6 +152,12 @@ body:before{display:none}
   .category-list:hover .category-card,.category-list .category-card:hover{transform:none}
   .cat-copy{left:28px;right:28px;bottom:26px}.cat-open{height:54px}
 }
+
+/* Persistent showreel sound control. */
+.site-sound{position:fixed;z-index:24;right:3vw;bottom:28px;display:flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(7,10,11,.58);backdrop-filter:blur(14px);color:rgba(255,255,255,.62);font-size:7px;letter-spacing:1.25px;transition:color .3s,border-color .3s,background .3s}.site-sound:hover,.site-sound.is-on{color:#fff;border-color:rgba(255,93,43,.48);background:rgba(12,12,12,.72)}.sound-bars{height:11px;display:flex;align-items:flex-end;gap:2px}.sound-bars i{display:block;width:2px;height:4px;background:currentColor}.site-sound.is-on .sound-bars i{animation:soundPulse .8s ease-in-out infinite alternate}.site-sound.is-on .sound-bars i:nth-child(2){height:9px;animation-delay:-.3s}.site-sound.is-on .sound-bars i:nth-child(3){height:6px;animation-delay:-.55s}@keyframes soundPulse{to{height:10px;color:var(--accent)}}
+
+@media(max-width:760px){.site-sound{right:14px;bottom:14px;padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){.site-sound.is-on .sound-bars i{animation:none}}
 @media(min-aspect-ratio:16/9) and (min-width:761px){
   .hero-frame{top:46%;width:min(88vw,calc(66vh * 16 / 9));height:min(66vh,calc(88vw * 9 / 16))}
 }
