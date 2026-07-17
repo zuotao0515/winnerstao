@@ -610,8 +610,8 @@ function openAbout(options = {}) {
       <div class="pipeline-grid">
         <article class="pipeline-item"><span>01</span><h3>概念与视觉方向</h3><p>理解业务需求与脚本分镜，整理概念氛围和视觉参考，建立画面风格与项目基调。</p><b>CONCEPT · LOOK DEV</b></article>
         <article class="pipeline-item"><span>02</span><h3>资产与场景制作</h3><p>场景、道具和基础资产制作，包括模型、UV、材质贴图及画面所需的视觉细节。</p><b>MODELING · UV · TEXTURE</b></article>
-        <article class="pipeline-item"><span>03</span><h3>材质灯光与渲染</h3><p>结合概念图完成材质、灯光、渲染测试和品质控制，保证风格与创意意图一致。</p><b>SHADING · LIGHTING · RENDER</b></article>
-        <article class="pipeline-item"><span>04</span><h3>Layout 与动态设计</h3><p>依据脚本和分镜完成基础 Layout、镜头构成、动画节奏与小型视觉特效。</p><b>LAYOUT · MOTION · FX</b></article>
+        <article class="pipeline-item"><span>03</span><h3>Layout 与动态设计</h3><p>依据脚本和分镜完成基础 Layout、镜头构成、动画节奏与小型视觉特效。</p><b>LAYOUT · MOTION · FX</b></article>
+        <article class="pipeline-item"><span>04</span><h3>材质灯光与渲染</h3><p>结合概念图完成材质、灯光、渲染测试和品质控制，保证风格与创意意图一致。</p><b>SHADING · LIGHTING · RENDER</b></article>
         <article class="pipeline-item"><span>05</span><h3>后期合成与交付</h3><p>完成多通道合成、画面整合、色彩与细节优化，让最终影像达到稳定的商业交付标准。</p><b>COMPOSITING · DELIVERY</b></article>
       </div>
     </section>
@@ -643,7 +643,7 @@ function openAbout(options = {}) {
       </div>
       <div class="client-columns">
         <article class="client-group client-group-games">
-          <header><span>01</span><div><h3>游戏与娱乐 IP</h3><p>GAME &amp; ENTERTAINMENT</p></div></header>
+          <header><div><h3>游戏与娱乐 IP</h3><p>GAME &amp; ENTERTAINMENT</p></div></header>
           <ol class="client-list">
             <li><span>01</span><b>拳头游戏 · 英雄联盟</b><em>RIOT GAMES · LEAGUE OF LEGENDS</em></li>
             <li><span>02</span><b>腾讯游戏</b><em>TENCENT GAMES</em></li>
@@ -657,7 +657,7 @@ function openAbout(options = {}) {
           </ol>
         </article>
         <article class="client-group client-group-platforms">
-          <header><span>02</span><div><h3>科技与数字平台</h3><p>TECHNOLOGY &amp; DIGITAL PLATFORM</p></div></header>
+          <header><div><h3>科技与数字平台</h3><p>TECHNOLOGY &amp; DIGITAL PLATFORM</p></div></header>
           <ol class="client-list">
             <li><span>01</span><b>阿里巴巴</b><em>ALIBABA</em></li>
             <li><span>02</span><b>字节跳动</b><em>BYTEDANCE</em></li>
@@ -668,7 +668,7 @@ function openAbout(options = {}) {
           </ol>
         </article>
         <article class="client-group client-group-brands">
-          <header><span>03</span><div><h3>消费与生活方式</h3><p>CONSUMER &amp; LIFESTYLE</p></div></header>
+          <header><div><h3>消费与生活方式</h3><p>CONSUMER &amp; LIFESTYLE</p></div></header>
           <ol class="client-list">
             <li><span>01</span><b>海信</b><em>HISENSE</em></li>
             <li><span>02</span><b>泡泡玛特</b><em>POP MART</em></li>
@@ -723,7 +723,7 @@ const navItems = [...document.querySelectorAll(".nav-item")];
 const navSections = [...document.querySelectorAll("#home,#works,#about,#contact")];
 const nav = document.querySelector(".nav");
 const aboutPortrait = document.querySelector("#about .portrait img");
-const heroDisplayType = document.querySelector(".hero-display-type");
+const heroSection = document.querySelector("#home");
 let navClickLockUntil = 0;
 let pendingNavId = "";
 
@@ -732,7 +732,7 @@ function setActiveNav(id) {
 }
 
 function getCurrentSectionId() {
-  if (heroDisplayType && heroDisplayType.getBoundingClientRect().bottom > 0) return "home";
+  if (heroSection && heroSection.getBoundingClientRect().bottom > 0) return "home";
 
   if (aboutPortrait) {
     const portraitTop = aboutPortrait.getBoundingClientRect().top + scrollY;

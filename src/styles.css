@@ -1573,3 +1573,90 @@ footer{
   }
 }
 
+/* v02: simplified hero, stronger information hierarchy, fixed editorial canvas */
+:root{--page-max:1700px;--hero-max:1600px}
+
+.nav nav .nav-item{display:flex;align-items:baseline;gap:6px;white-space:nowrap;font-weight:600;letter-spacing:.06em}
+.nav nav .nav-item span{color:rgba(255,255,255,.48);font-size:.9em;font-weight:500;letter-spacing:.02em}
+.nav nav .nav-item.active span,.nav nav .nav-item:hover span{color:rgba(255,255,255,.82)}
+
+.hero{min-height:680px;background:rgba(4,7,8,.5)}
+.hero:after{background:radial-gradient(ellipse 42% 35% at 18% 78%,rgba(255,93,43,.1),transparent 72%),linear-gradient(120deg,rgba(255,93,43,.035),transparent 38%,rgba(255,255,255,.018) 55%,transparent 76%);opacity:.72;mix-blend-mode:screen}
+.hero-frame{top:50%;width:min(calc(100vw - 64px),var(--hero-max),calc((100svh - 150px) * 16 / 9));height:auto;aspect-ratio:16/9;border:1px solid rgba(255,93,43,.2);box-shadow:0 28px 100px rgba(0,0,0,.38),0 0 70px rgba(255,93,43,.055)}
+.hero-frame video{opacity:1;object-fit:cover;filter:none;background:#050708}
+
+.categories{padding-left:max(20px,calc((100vw - var(--page-max))/2));padding-right:max(20px,calc((100vw - var(--page-max))/2))}
+.categories .section-label,.category-intro,.categories .category-list{width:100%;max-width:var(--page-max);margin-left:auto;margin-right:auto}
+
+.about-copy .section-label,.about-page .section-label{font-size:13px}
+.body{font-size:17px;line-height:1.85;color:rgba(232,226,217,.76)}
+.about-stats b{min-width:112px;font-size:64px;font-weight:750;letter-spacing:-.045em}
+.about-stats sup{margin-left:10px;font-size:21px;font-weight:800;color:var(--accent)}
+.about-stats span{font-size:14px;line-height:1.55;color:rgba(232,226,217,.72)}
+.about-capability{font-size:13px;line-height:1.8;color:rgba(232,226,217,.54)}
+.about-detail-button{position:relative;align-self:flex-start;min-width:320px;margin-top:28px;padding:18px 64px 18px 20px;border:1px solid rgba(255,93,43,.56);border-radius:12px;background:linear-gradient(135deg,rgba(255,93,43,.18),rgba(255,93,43,.055));color:#fff;text-align:left;box-shadow:0 14px 44px rgba(0,0,0,.2);transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s,box-shadow .35s,background .35s}
+.about-detail-button span{display:block;font-size:16px;font-weight:750;letter-spacing:.04em}
+.about-detail-button b{display:block;margin-top:7px;color:rgba(255,255,255,.54);font-size:11px;font-weight:500;letter-spacing:.1em}
+.about-detail-button i{position:absolute;right:20px;top:50%;width:32px;height:32px;display:grid;place-items:center;transform:translateY(-50%);border-radius:50%;background:var(--accent);color:#0a0b0b;font-size:17px;font-style:normal;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.about-detail-button:hover{transform:translateY(-5px);border-color:rgba(255,93,43,.9);background:linear-gradient(135deg,rgba(255,93,43,.28),rgba(255,93,43,.08));box-shadow:0 20px 54px rgba(0,0,0,.3),0 0 34px rgba(255,93,43,.13)}
+.about-detail-button:hover i{transform:translateY(-50%) translate(3px,-3px);box-shadow:0 0 24px rgba(255,93,43,.55)}
+
+.contact-label,.contact-top>span:last-child{font-size:11px}
+.contact-kicker{font-size:14px}
+.contact-notes b,.field-row label{font-size:14px;font-weight:700}
+.contact-notes span,.field-row span{font-size:17px;line-height:1.7;color:rgba(232,226,217,.7)}
+.contact-bottom span{font-size:12px}.contact-bottom b{font-size:15px}
+
+.about-kicker{font-size:14px;font-weight:650}
+.about-detail-title{letter-spacing:-.018em}
+.about-detail-portrait figcaption{font-size:10px}
+.about-detail-stats b{font-size:52px;font-weight:750}
+.about-detail-stats sup{font-size:18px;font-weight:800}
+.about-detail-stats span{font-size:12px;line-height:1.6;color:rgba(238,233,225,.7)}
+.about-block-head{font-size:13px;font-weight:650}
+.about-story-copy p{font-size:18px;line-height:1.9;color:rgba(238,233,225,.76)}
+.pipeline-item>span{font-size:14px;font-weight:800}
+.pipeline-item p{font-size:17px;line-height:1.82;color:rgba(18,19,19,.72)}
+.pipeline-item b{font-size:12px;font-weight:700}
+.tool-grid{gap:18px;background:transparent;border:0}
+.tool-group{min-height:390px;display:grid;grid-template-rows:auto 1fr;padding:0;border:1px solid rgba(255,255,255,.14);background:#0a0d0e}
+.tool-group span{display:block;padding:22px 26px;border-bottom:1px solid rgba(255,93,43,.32);background:rgba(255,93,43,.1);color:#ff7950;font-size:14px;font-weight:800;letter-spacing:.11em}
+.tool-group h3{margin:0;padding:38px 26px;align-self:start;font-size:clamp(27px,2vw,38px);line-height:1.5}
+.timeline-item time{font-size:14px;font-weight:800}
+.timeline-item h3{font-size:25px;font-weight:650}
+.timeline-item b{font-size:14px}.timeline-item p{font-size:17px;line-height:1.82;color:rgba(238,233,225,.74)}
+.client-intro p{font-size:17px;color:rgba(18,19,19,.7)}
+.client-group{border-top:0}
+.client-group header{min-height:118px;padding:24px 26px;border-left:4px solid var(--accent);background:#111414;color:#f1ece4}
+.client-group header h3{margin-bottom:10px;font-size:27px;font-weight:750}
+.client-group header p{font-size:12px;color:rgba(241,236,228,.52)}
+.client-list li>span{font-size:12px;font-weight:800}
+.client-list b{font-size:21px;font-weight:650}.client-list em{font-size:11px}
+.about-cta>span,.about-cta a{font-size:14px;font-weight:700}
+
+@media(max-width:760px){
+  .nav nav .nav-item{gap:3px;padding:9px 5px;font-size:7px;letter-spacing:.025em}
+  .nav nav .nav-item span{font-size:1em}
+  .hero{min-height:0}
+  .hero-frame{top:50%;width:calc(100vw - 28px);height:auto}
+  .body{font-size:15px}
+  .about-stats b{min-width:70px;font-size:42px;font-weight:800}
+  .about-stats sup{margin-left:6px;font-size:17px}
+  .about-stats span{font-size:11px}
+  .about-capability{font-size:11px}
+  .about-detail-button{width:100%;min-width:0}
+  .contact-notes b,.field-row label{font-size:13px}
+  .contact-notes span,.field-row span{font-size:15px}
+  .about-kicker{font-size:11px}
+  .about-detail-stats b{font-size:44px}
+  .about-detail-stats span{font-size:11px}
+  .about-block-head{font-size:11px}
+  .about-story-copy p,.pipeline-item p,.timeline-item p,.client-intro p{font-size:16px}
+  .tool-group{min-height:270px}
+  .tool-group span{padding:18px 20px;font-size:13px}
+  .tool-group h3{padding:30px 20px}
+  .client-group header{min-height:0;padding:20px}
+  .client-group header h3{font-size:23px}
+  .client-list em{font-size:10px}
+}
+
