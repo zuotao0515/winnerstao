@@ -192,7 +192,8 @@ const cats = [
     desc: "Personal studies in rendering, composition and form."
   }
 ];
-const catList = document.querySelector("#category-list");
+const selectedProjectList = document.querySelector("#selected-project-list");
+const allWorksButton = document.querySelector("#all-works-button");
 const overlay = document.querySelector("#overlay");
 const content = document.querySelector("#overlay-content");
 const path = src => /^(?:https?:)?\/\//.test(src) || src.startsWith("file:///") ? src : "./" + src;
@@ -211,7 +212,9 @@ const revealSelectors = [
   ".hero-display-type",
   ".section-label",
   ".category-intro",
-  ".category-card",
+  ".selected-project-card",
+  ".all-project-card",
+  ".all-works-button",
   ".about-copy .quote",
   ".about-copy .body",
   ".about-stats > div",
@@ -251,7 +254,7 @@ const revealSelectors = [
 function getRevealDelay(element) {
   const parent = element.parentElement;
   const staggerGroups = [
-    ".category-list",
+    ".selected-project-list",
     ".about-copy",
     ".about-stats",
     ".contact-left",
@@ -385,26 +388,67 @@ addEventListener("pointerdown", unlockShowreelAudio, true);
 addEventListener("keydown", unlockShowreelAudio, true);
 document.addEventListener("visibilitychange", syncShowreelAudio);
 
-function renderCats() {
-  catList.innerHTML = cats.map((cat, i) => `
-    <button class="category-card cat-${i + 1}" data-cat="${cat.name}">
-      <img class="cat-bg" src="${path(cat.cover)}" alt="">
-      <div class="cat-clear"><img src="${path(cat.cover)}" alt="${cat.name}"></div>
-      <div class="cat-fade"></div>
-      <div class="cat-copy">
-        <div class="cat-dots"><i></i><i></i><i></i></div>
-        <div class="cat-title-row"><h3>${cat.name}</h3><span>${cat.count}</span></div>
-        <p>${cat.desc}</p>
-        <div class="cat-tags"><b>${cat.en}</b><b>SELECTED</b></div>
-        <div class="cat-open">查看更多</div>
+const commercialProjects = projects.filter(project => project.category !== "视觉实验");
+const selectedProjects = [projects[0], projects[7], ...commercialProjects.filter(project => project !== projects[0] && project !== projects[7])].slice(0, 11);
+
+function projectCardMarkup(project, className, index) {
+  return `
+    <button class="${className} project-layout-${index + 1}" data-project-index="${projects.indexOf(project)}" data-preview-video="${path(project.video)}" aria-label="查看项目：${project.title}">
+      <div class="project-visual">
+        <img src="${path(project.cover)}" alt="${project.title}">
+        <video muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="project-card-title">${project.title.replace("宣传 CG", "").replace("手机壁纸", "壁纸")}</span>
       </div>
     </button>
-  `).join("");
+  `;
+}
 
-  catList.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", () => openCategory(button.dataset.cat));
+function bindProjectPreviews(root) {
+  root.querySelectorAll("[data-preview-video]").forEach(card => {
+    const video = card.querySelector("video");
+    const startPreview = () => {
+      if (isMobileViewport.matches || reduceMotion || !video) return;
+      if (!video.getAttribute("src")) {
+        video.src = card.dataset.previewVideo;
+        video.load();
+      }
+      video.play().then(() => card.classList.add("is-previewing")).catch(() => {});
+    };
+    const stopPreview = () => {
+      if (!video) return;
+      video.pause();
+      try { video.currentTime = 0; } catch {}
+      card.classList.remove("is-previewing");
+    };
+    card.addEventListener("pointerenter", startPreview);
+    card.addEventListener("pointerleave", stopPreview);
+    card.addEventListener("click", () => openProject(projects[+card.dataset.projectIndex], { origin:"selected" }));
   });
-  prepareReveals(catList);
+}
+
+function renderSelectedProjects() {
+  selectedProjectList.innerHTML = selectedProjects.map((project, index) => projectCardMarkup(project, "selected-project-card", index)).join("");
+  bindProjectPreviews(selectedProjectList);
+  prepareReveals(selectedProjectList);
+}
+
+function openAllWorks(options = {}) {
+  overlayLevel = "all-works";
+  currentCategory = "all";
+  content.innerHTML = `
+    <section class="category-overlay-head all-works-head">
+      <span>WORK / 全部作品</span>
+      <h1>ALL <em>WORK</em></h1>
+      <p>SELECTED COMMERCIAL PROJECTS · ${String(commercialProjects.length).padStart(2, "0")}</p>
+    </section>
+    <div class="all-project-grid">
+      ${commercialProjects.map((project, index) => projectCardMarkup(project, "all-project-card", index)).join("")}
+    </div>
+  `;
+  bindProjectPreviews(content);
+  showOverlay();
+  if (options.push !== false) pushOverlayState("all-works");
+  prepareReveals(content);
 }
 
 function currentBaseHash() {
@@ -471,7 +515,7 @@ function openCategory(category, options = {}) {
 
 function openProject(project, options = {}) {
   overlayLevel = "project";
-  currentCategory = project.category;
+  currentCategory = options.origin || currentCategory || "selected";
   content.innerHTML = `
     <div class="detail-title"><span>${project.index} / ${project.category}</span><h1>${project.title}</h1><p>${project.en}</p></div>
     <div class="detail-info"><span>ROLE</span><b>${project.role}</b><span>FORMAT</span><b>${project.video ? "CG FILM / STILLS" : "CGI STILLS"}</b><span>YEAR</span><b>2024 - 2026</b></div>
@@ -481,7 +525,8 @@ function openProject(project, options = {}) {
   showOverlay();
   if (options.push !== false) pushOverlayState("project", {
     category:project.category,
-    projectIndex:projects.indexOf(project)
+    projectIndex:projects.indexOf(project),
+    origin:currentCategory
   });
   prepareReveals(content);
 }
@@ -501,7 +546,11 @@ function closeOverlay() {
 }
 
 function performOverlayBack() {
-  if (overlayLevel === "project" && currentCategory) {
+  if (overlayLevel === "project" && currentCategory === "all") {
+    openAllWorks({ push:false });
+    return;
+  }
+  if (overlayLevel === "project" && currentCategory && currentCategory !== "selected") {
     openCategory(currentCategory, { push:false });
     return;
   }
@@ -711,13 +760,9 @@ document.addEventListener("click", event => {
     return;
   }
 
-  const categoryCard = event.target.closest(".category-card[data-cat]");
-  if (categoryCard) {
-    event.preventDefault();
-    event.stopPropagation();
-    openCategory(categoryCard.dataset.cat);
-  }
 }, true);
+
+allWorksButton.addEventListener("click", () => openAllWorks());
 
 const navItems = [...document.querySelectorAll(".nav-item")];
 const navSections = [...document.querySelectorAll("#home,#works,#about,#contact")];
@@ -807,8 +852,10 @@ addEventListener("popstate", event => {
   if (state && state.portfolioOverlay) {
     if (state.level === "category") {
       openCategory(state.category, { push:false });
+    } else if (state.level === "all-works") {
+      openAllWorks({ push:false });
     } else if (state.level === "project") {
-      openProject(projects[state.projectIndex], { push:false });
+      openProject(projects[state.projectIndex], { push:false, origin:state.origin });
     } else if (state.level === "about") {
       openAbout({ push:false });
     } else if (state.level === "lightbox") {
@@ -826,7 +873,7 @@ replaceBaseHistoryState();
 setActiveNav((location.hash || "#home").slice(1));
 syncNavFromScroll();
 
-renderCats();
+renderSelectedProjects();
 closeOverlay();
 prepareReveals(document);
 loadHeroVideos();
