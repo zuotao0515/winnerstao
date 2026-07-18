@@ -1865,3 +1865,58 @@ footer{
   .all-project-card:hover{transform:none;box-shadow:none}
 }
 
+/* Selected cases layout: two lead cases followed by a 3 x 3 project matrix */
+.category-intro h2{
+  gap:.2em;
+  font-size:clamp(56px,6.8vw,118px);
+  letter-spacing:-.05em;
+  text-transform:none;
+}
+
+.category-intro h2 span{
+  text-transform:none;
+}
+
+.category-intro h2 em{
+  font-size:.48em;
+  letter-spacing:-.035em;
+}
+
+.selected-project-card,
+.selected-project-card:nth-child(n){
+  grid-column:span 4;
+}
+
+.selected-project-card:nth-child(1),
+.selected-project-card:nth-child(2){
+  grid-column:span 6;
+}
+
+.selected-project-card .project-visual,
+.selected-project-card:nth-child(5) .project-visual{
+  aspect-ratio:6/5;
+}
+
+.selected-project-card:nth-child(1) .project-visual,
+.selected-project-card:nth-child(2) .project-visual{
+  aspect-ratio:16/9;
+}
+
+@media(max-width:760px){
+  .category-intro h2{
+    font-size:16vw;
+    line-height:.92;
+  }
+
+  .category-intro h2 em{
+    font-size:.55em;
+  }
+
+  .selected-project-card .project-visual,
+  .selected-project-card:nth-child(1) .project-visual,
+  .selected-project-card:nth-child(2) .project-visual,
+  .selected-project-card:nth-child(5) .project-visual{
+    aspect-ratio:4/3;
+  }
+}
+

@@ -389,7 +389,14 @@ addEventListener("keydown", unlockShowreelAudio, true);
 document.addEventListener("visibilitychange", syncShowreelAudio);
 
 const commercialProjects = projects.filter(project => project.category !== "视觉实验");
-const selectedProjects = [projects[0], projects[7], ...commercialProjects.filter(project => project !== projects[0] && project !== projects[7])].slice(0, 11);
+const selectedProjects = [
+  projects[0],
+  projects[7],
+  ...projects.slice(1, 7),
+  projects[8],
+  projects[9],
+  projects[13]
+];
 
 function projectCardMarkup(project, className, index) {
   return `
