@@ -10,10 +10,10 @@ const projects = [
   {
     category: "游戏 CG",
     index: "01",
-    title: "决胜巅峰宣传 CG",
+    title: "MLBB / 决胜巅峰",
     en: "MOBILE LEGENDS · LAUNCH CG",
     role: "Lighting · Rendering · Compositing",
-    cover: "个人作品集/游戏CG/决胜巅峰宣传CG/03.png",
+    cover: "个人作品集/游戏CG/决胜巅峰宣传CG/02.png",
     video: rel("https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/game-01-mlbb.mp4"),
     images: media("个人作品集/游戏CG/决胜巅峰宣传CG", ["02.png", "01.png", "03.png", "04.jpg", "05.jpg", "06.jpg", "07.jpg", "08.jpg"])
   },
@@ -40,10 +40,10 @@ const projects = [
   {
     category: "游戏 CG",
     index: "04",
-    title: "金铲铲 K/DA 女团",
-    en: "BATTLE OF GOLDEN SPATULA · K/DA",
+    title: "金铲铲 KDA 女团",
+    en: "BATTLE OF GOLDEN SPATULA · KDA",
     role: "Look Development · Rendering",
-    cover: rel("个人作品集/游戏CG/金铲铲 KDA女团CG/kda8.png"),
+    cover: rel("个人作品集/游戏CG/金铲铲 KDA女团CG/kda1.png"),
     video: rel("https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/game-04-kda.mp4"),
     images: media("个人作品集/游戏CG/金铲铲 KDA女团CG", ["kda8.png", "kda1.png", "kda2.png", "kda3.png", "kda4.png", "kda5.png", "kda6.png", "kda7.png"])
   },
