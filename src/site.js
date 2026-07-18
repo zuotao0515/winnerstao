@@ -399,13 +399,17 @@ addEventListener("keydown", unlockShowreelAudio, true);
 document.addEventListener("visibilitychange", syncShowreelAudio);
 
 const commercialProjects = projects.filter(project => project.category !== "视觉实验");
+const allWorkProjects = [...commercialProjects];
+const tiktokAllIndex = allWorkProjects.findIndex(project => project.title === "Tiktok 颁奖典礼");
+const qqSpeedAllIndex = allWorkProjects.findIndex(project => project.title === "QQ飞车 MV");
+[allWorkProjects[tiktokAllIndex], allWorkProjects[qqSpeedAllIndex]] = [allWorkProjects[qqSpeedAllIndex], allWorkProjects[tiktokAllIndex]];
 const selectedProjects = [
   projects[0],
   projects[7],
   ...projects.slice(1, 7),
   projects[8],
   projects[9],
-  projects[11]
+  projects[14]
 ];
 
 function projectCardMarkup(project, className, index) {
@@ -456,10 +460,10 @@ function openAllWorks(options = {}) {
     <section class="category-overlay-head all-works-head">
       <span>WORK / 全部作品</span>
       <h1>ALL <em>WORK</em></h1>
-      <p>SELECTED COMMERCIAL PROJECTS · ${String(commercialProjects.length).padStart(2, "0")}</p>
+      <p>SELECTED COMMERCIAL PROJECTS · ${String(allWorkProjects.length).padStart(2, "0")}</p>
     </section>
     <div class="all-project-grid">
-      ${commercialProjects.map((project, index) => projectCardMarkup(project, "all-project-card", index)).join("")}
+      ${allWorkProjects.map((project, index) => projectCardMarkup(project, "all-project-card", index)).join("")}
     </div>
   `;
   bindProjectPreviews(content);
