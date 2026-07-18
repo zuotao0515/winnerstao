@@ -1830,6 +1830,12 @@ footer{
   font-style:normal;
 }
 
+.all-works-head h1,
+.all-works-head h1 em{
+  font-family:"HarmonyOS Sans","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  font-weight:800;
+}
+
 .all-project-grid{
   width:100%;
   max-width:1700px;
