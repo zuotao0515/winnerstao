@@ -93,7 +93,7 @@ const projects = [
     title: "追觅洗地机",
     en: "DREAME · PRODUCT VISUAL",
     role: "Lighting · Rendering · Compositing",
-    cover: rel("个人作品集/产品广告/追觅洗地机/sq020-sh290_A_Frame_v0003.0098.png"),
+    cover: rel("个人作品集/产品广告/追觅洗地机/sq020-sh010_ac_v0002.0103.png"),
     video: rel("https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/commercial-02-dreame.mp4"),
     images: media("个人作品集/产品广告/追觅洗地机", ["sq020-sh290_A_Frame_v0003.0098.png", "sq020-sh310_ac_v0003.0082.png", "sq020-sh300_Frame_v0001.0075.png", "sq020-sh280_ac_v0001.0085.png", "sq020-sh250_A_ac_v0002.0160.png", "sq020-sh180_ac_v0001.0019.png"])
   },
@@ -103,7 +103,7 @@ const projects = [
     title: "MOVA 泳池机",
     en: "MOVA · POOL CLEANER",
     role: "CGI · Motion · Rendering",
-    cover: rel("个人作品集/产品广告/MOVA泳池机/sq020-sh200_ac_v0002.0055.png"),
+    cover: rel("个人作品集/产品广告/MOVA泳池机/sq020-sh190_ac_v0002.0000.png"),
     video: rel("https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/commercial-03-mova.mp4"),
     images: media("个人作品集/产品广告/MOVA泳池机", ["sq020-sh200_ac_v0002.0055.png", "sq020-sh190_ac_v0002.0000.png", "sq020-sh180b_ac_v0002.0025.png", "sq020-sh180a_ac_v0002.0033.png", "sq010-sh160_bc_v0001.0025.png", "sq010-sh150_bc_v0001.0052.png"])
   },
