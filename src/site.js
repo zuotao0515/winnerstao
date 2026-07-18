@@ -147,9 +147,19 @@ const projects = [
     video: rel("https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/commercial-07-sungrow.mp4"),
     images: media("个人作品集/产品广告/阳光新能源 光伏板", ["sh320.png", "sh190_v02.png", "sh190_v01.png", "sh150_v02.png", "sh150_v01.png", "sh040.png"])
   },
+  {
+    category: "游戏 CG",
+    index: "15",
+    title: "QQ飞车 MV",
+    en: "QQ SPEED · MUSIC VIDEO",
+    role: "Lighting · Rendering · Compositing",
+    cover: "个人作品集/游戏CG/QQ飞车 MV/05.png",
+    video: rel("个人作品集/游戏CG/QQ飞车 MV/QQ飞车MV.mp4"),
+    images: media("个人作品集/游戏CG/QQ飞车 MV", ["01.png", "02.png", "03.png", "04.png", "05.png", "06.png"])
+  },
   ...media("个人作品集/个人练习", ["写实渲染合成.png", "序列帧0000.png", "序列帧0001.png", "笔记本.jpg", "键盘01.jpg", "键盘02.jpg", "键盘03.jpg", "键盘04.jpg", "键盘06.jpg", "键盘07.jpg", "键盘08.jpg", "键盘09.jpg", "音响.jpg", "颐莲焕亮面膜.png", "香水.jpg", "龙.jpg"]).map((cover, i) => ({
     category: "视觉实验",
-    index: String(i + 15).padStart(2, "0"),
+    index: String(i + 16).padStart(2, "0"),
     title: cover.split("/").pop().replace(imageExt, ""),
     en: "PERSONAL EXPLORATION",
     role: "CGI · Art Direction",
@@ -173,7 +183,7 @@ const cats = [
   {
     name: "游戏 CG",
     en: "GAME CINEMATICS",
-    count: "07",
+    count: "08",
     cover: "个人作品集/游戏CG/决胜巅峰宣传CG/02.png",
     desc: "Game cinematics, character films and launch visuals."
   },
@@ -395,7 +405,7 @@ const selectedProjects = [
   ...projects.slice(1, 7),
   projects[8],
   projects[9],
-  projects[13]
+  projects[14]
 ];
 
 function projectCardMarkup(project, className, index) {
