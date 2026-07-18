@@ -1836,14 +1836,20 @@ footer{
   font-weight:800;
 }
 
-.all-project-grid{
-  width:100%;
-  max-width:1700px;
+.all-works-head{
+  width:min(calc(100% - 40px),1700px);
   margin:0 auto;
-  padding:0 max(20px,calc((100vw - 1700px)/2)) 12vw;
+  padding:clamp(110px,10vw,180px) 0 clamp(60px,7vw,120px);
+}
+
+.all-project-grid{
+  width:min(calc(100% - 40px),1700px);
+  max-width:none;
+  margin:0 auto;
+  padding:0 0 clamp(100px,12vw,200px);
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
+  gap:16px;
 }
 
 .all-project-card .project-visual{aspect-ratio:16/10}
@@ -1862,7 +1868,8 @@ footer{
   .project-card-title{left:16px;top:15px;max-width:calc(100% - 32px);font-size:15px}
   .all-works-button{min-height:76px;margin-top:56px}
   .all-works-button span{font-size:15px}
-  .all-project-grid{padding:0 20px 90px}
+  .all-works-head{width:calc(100% - 40px);padding:100px 0 60px}
+  .all-project-grid{width:calc(100% - 40px);padding:0 0 90px}
   .all-works-head h1{font-size:19vw}
 }
 
