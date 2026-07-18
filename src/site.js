@@ -405,7 +405,7 @@ const selectedProjects = [
   ...projects.slice(1, 7),
   projects[8],
   projects[9],
-  projects[14]
+  projects[11]
 ];
 
 function projectCardMarkup(project, className, index) {
