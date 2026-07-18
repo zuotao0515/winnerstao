@@ -153,7 +153,7 @@ const projects = [
     title: "QQ飞车 MV",
     en: "QQ SPEED · MUSIC VIDEO",
     role: "Lighting · Rendering · Compositing",
-    cover: "个人作品集/游戏CG/QQ飞车 MV/05.png",
+    cover: "个人作品集/游戏CG/QQ飞车 MV/03.png",
     video: rel("个人作品集/游戏CG/QQ飞车 MV/QQ飞车MV.mp4"),
     images: media("个人作品集/游戏CG/QQ飞车 MV", ["01.png", "02.png", "03.png", "04.png", "05.png", "06.png"])
   },
