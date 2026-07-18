@@ -1695,7 +1695,7 @@ footer{
   margin:0 auto;
   display:grid;
   grid-template-columns:repeat(12,minmax(0,1fr));
-  gap:clamp(22px,1.75vw,34px);
+  gap:14px;
 }
 
 .selected-project-card,
@@ -1837,7 +1837,7 @@ footer{
   padding:0 max(20px,calc((100vw - 1700px)/2)) 12vw;
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(22px,1.75vw,34px);
+  gap:14px;
 }
 
 .all-project-card .project-visual{aspect-ratio:16/10}
@@ -1849,7 +1849,7 @@ footer{
   .category-intro h2 em{margin-top:10px;font-size:.58em}
   .category-intro .see-more{margin-top:20px;font-size:9px}
   .selected-project-list,.all-project-grid{display:block}
-  .selected-project-card,.all-project-card{margin-bottom:18px;transform:none!important}
+  .selected-project-card,.all-project-card{margin-bottom:12px;transform:none!important}
   .selected-project-card .project-visual,
   .selected-project-card:nth-child(5) .project-visual,
   .all-project-card .project-visual{aspect-ratio:4/3}
