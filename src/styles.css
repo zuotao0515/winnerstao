@@ -895,7 +895,7 @@ body:before{display:none}
   display:block;
   padding:0 0 21px;
   margin-bottom:28px;
-  border-bottom:1px solid rgba(232,216,197,.35);
+  border-bottom:1px solid rgba(232,216,197,.16);
   color:inherit;
   transition:border-color .25s,color .25s;
 }
@@ -1006,8 +1006,8 @@ a.field-row:hover span{
 }
 .contact-formlike .field-row{
   text-align:right;
-  padding-bottom:24px;
-  margin-bottom:34px;
+  padding-bottom:14px;
+  margin-bottom:38px;
 }
 .contact-formlike .field-row label,
 .contact-formlike .field-row span{
