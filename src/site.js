@@ -356,14 +356,15 @@ function loadHeroVideos() {
 const heroMainVideo = document.querySelector(".hero-main-video");
 const soundToggle = document.querySelector("#site-sound");
 let soundEnabled = localStorage.getItem("portfolioSound") !== "off";
-let soundNeedsGesture = false;
+let soundUnlocked = false;
+let soundNeedsGesture = soundEnabled;
 
 async function syncShowreelAudio() {
   if (!heroMainVideo || !soundToggle) return;
   const overlayIsOpen = overlay.classList.contains("open");
-  const shouldPlaySound = soundEnabled && !overlayIsOpen && !document.hidden;
+  const shouldPlaySound = soundEnabled && soundUnlocked && !overlayIsOpen && !document.hidden;
   heroMainVideo.volume = 0.65;
-  soundNeedsGesture = false;
+  soundNeedsGesture = soundEnabled && !soundUnlocked;
 
   if (shouldPlaySound) {
     heroMainVideo.muted = false;
@@ -394,7 +395,7 @@ function setSoundEnabled(enabled, remember = true) {
 
 function unlockShowreelAudio(event) {
   if (event.target.closest && event.target.closest("#site-sound")) return;
-  if (localStorage.getItem("portfolioSound") === "off") return;
+  soundUnlocked = true;
   setSoundEnabled(true, false);
   removeEventListener("pointerdown", unlockShowreelAudio, true);
   removeEventListener("keydown", unlockShowreelAudio, true);
@@ -402,6 +403,7 @@ function unlockShowreelAudio(event) {
 
 soundToggle.addEventListener("click", event => {
   event.stopPropagation();
+  soundUnlocked = true;
   setSoundEnabled(soundNeedsGesture ? true : !soundEnabled);
 });
 addEventListener("pointerdown", unlockShowreelAudio, true);
