@@ -157,9 +157,19 @@ const projects = [
     video: rel("个人作品集/游戏CG/QQ飞车 MV/QQ飞车MV.mp4"),
     images: media("个人作品集/游戏CG/QQ飞车 MV", ["01.png", "02.png", "03.png", "04.png", "05.png", "06.png"])
   },
+  {
+    category: "游戏 CG",
+    index: "16",
+    title: "王者荣耀 × 菜狗联名",
+    en: "HONOR OF KINGS · CAIGOU COLLABORATION",
+    role: "Lighting · Rendering · Compositing",
+    cover: "个人作品集/游戏CG/王者荣耀&菜狗联名CG/01.png",
+    video: rel("https://pub-259330d9232b4602a06a289559b08dc3.r2.dev/videos/game-08-caigou.mp4"),
+    images: media("个人作品集/游戏CG/王者荣耀&菜狗联名CG", ["01.png", "02.png", "03.png", "04.png", "05.png"])
+  },
   ...media("个人作品集/个人练习", ["写实渲染合成.png", "序列帧0000.png", "序列帧0001.png", "笔记本.jpg", "键盘01.jpg", "键盘02.jpg", "键盘03.jpg", "键盘04.jpg", "键盘06.jpg", "键盘07.jpg", "键盘08.jpg", "键盘09.jpg", "音响.jpg", "颐莲焕亮面膜.png", "香水.jpg", "龙.jpg"]).map((cover, i) => ({
     category: "视觉实验",
-    index: String(i + 16).padStart(2, "0"),
+    index: String(i + 17).padStart(2, "0"),
     title: cover.split("/").pop().replace(imageExt, ""),
     en: "PERSONAL EXPLORATION",
     role: "CGI · Art Direction",
@@ -398,11 +408,17 @@ addEventListener("pointerdown", unlockShowreelAudio, true);
 addEventListener("keydown", unlockShowreelAudio, true);
 document.addEventListener("visibilitychange", syncShowreelAudio);
 
-const commercialProjects = projects.filter(project => project.category !== "视觉实验");
-const allWorkProjects = [...commercialProjects];
-const tiktokAllIndex = allWorkProjects.findIndex(project => project.title === "Tiktok 颁奖典礼");
-const qqSpeedAllIndex = allWorkProjects.findIndex(project => project.title === "QQ飞车 MV");
-[allWorkProjects[tiktokAllIndex], allWorkProjects[qqSpeedAllIndex]] = [allWorkProjects[qqSpeedAllIndex], allWorkProjects[tiktokAllIndex]];
+function swapProjectsByTitle(projectList, firstTitle, secondTitle) {
+  const firstIndex = projectList.findIndex(project => project.title === firstTitle);
+  const secondIndex = projectList.findIndex(project => project.title === secondTitle);
+  if (firstIndex < 0 || secondIndex < 0) return;
+  [projectList[firstIndex], projectList[secondIndex]] = [projectList[secondIndex], projectList[firstIndex]];
+}
+
+const orderedCommercialProjects = projects.filter(project => project.category !== "视觉实验");
+swapProjectsByTitle(orderedCommercialProjects, "Tiktok 颁奖典礼", "QQ飞车 MV");
+const allWorkProjects = orderedCommercialProjects.filter(project => !["Tiktok 颁奖典礼", "阳光新能源 光伏板"].includes(project.title));
+swapProjectsByTitle(allWorkProjects, "王者荣耀 × 菜狗联名", "蒙牛冠益乳");
 const selectedProjects = [
   projects[0],
   projects[7],
