@@ -1635,7 +1635,22 @@ footer{
 .about-cta>span,.about-cta a{font-size:14px;font-weight:700}
 
 @media(max-width:760px){
-  .nav nav .nav-item{gap:3px;padding:9px 5px;font-size:7px;letter-spacing:.025em}
+  .nav-left .nav-pill{
+    left:auto;
+    right:14px;
+    width:calc(100vw - 86px);
+    max-width:340px;
+    transform:none;
+  }
+  .nav nav .nav-item{
+    flex:1 1 0;
+    min-width:0;
+    justify-content:center;
+    gap:3px;
+    padding:9px 3px;
+    font-size:7px;
+    letter-spacing:.025em;
+  }
   .nav nav .nav-item span{font-size:1em}
   .hero{min-height:0}
   .hero-frame{top:50%;width:calc(100vw - 28px);height:auto}
