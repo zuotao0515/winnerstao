@@ -410,24 +410,29 @@ addEventListener("pointerdown", unlockShowreelAudio, true);
 addEventListener("keydown", unlockShowreelAudio, true);
 document.addEventListener("visibilitychange", syncShowreelAudio);
 
-function swapProjectsByTitle(projectList, firstTitle, secondTitle) {
-  const firstIndex = projectList.findIndex(project => project.title === firstTitle);
-  const secondIndex = projectList.findIndex(project => project.title === secondTitle);
-  if (firstIndex < 0 || secondIndex < 0) return;
-  [projectList[firstIndex], projectList[secondIndex]] = [projectList[secondIndex], projectList[firstIndex]];
-}
-
-const orderedCommercialProjects = projects.filter(project => project.category !== "视觉实验");
-swapProjectsByTitle(orderedCommercialProjects, "Tiktok 颁奖典礼", "QQ飞车 MV");
-const allWorkProjects = orderedCommercialProjects.filter(project => !["Tiktok 颁奖典礼", "阳光新能源 光伏板"].includes(project.title));
-swapProjectsByTitle(allWorkProjects, "王者荣耀 × 菜狗联名", "蒙牛冠益乳");
+const allWorksTailTitles = [
+  "QQ飞车 MV",
+  "王者荣耀 × 菜狗联名",
+  "追觅洗地机",
+  "MOVA 泳池机",
+  "OPPO 手机壁纸",
+  "蒙牛冠益乳"
+];
+const visibleCommercialProjects = projects.filter(project =>
+  project.category !== "视觉实验" &&
+  !["Tiktok 颁奖典礼", "阳光新能源 光伏板"].includes(project.title)
+);
+const allWorkProjects = [
+  ...visibleCommercialProjects.filter(project => !allWorksTailTitles.includes(project.title)),
+  ...allWorksTailTitles.map(title => visibleCommercialProjects.find(project => project.title === title)).filter(Boolean)
+];
 const selectedProjects = [
   projects[0],
   projects[7],
   ...projects.slice(1, 7),
+  projects[14],
   projects[8],
-  projects[9],
-  projects[14]
+  projects[9]
 ];
 
 function projectCardMarkup(project, className, index) {
@@ -808,6 +813,7 @@ const navSections = [...document.querySelectorAll("#home,#works,#about,#contact"
 const nav = document.querySelector(".nav");
 const aboutPortrait = document.querySelector("#about .portrait img");
 const heroSection = document.querySelector("#home");
+const contactSection = document.querySelector("#contact");
 let navClickLockUntil = 0;
 let pendingNavId = "";
 
@@ -817,6 +823,12 @@ function setActiveNav(id) {
 
 function getCurrentSectionId() {
   if (heroSection && heroSection.getBoundingClientRect().bottom > 0) return "home";
+
+  if (isMobileViewport.matches && contactSection) {
+    const contactTop = contactSection.getBoundingClientRect().top;
+    const atPageBottom = scrollY + innerHeight >= document.documentElement.scrollHeight - 2;
+    if (contactTop <= innerHeight * 0.6 || atPageBottom) return "contact";
+  }
 
   if (aboutPortrait) {
     const portraitTop = aboutPortrait.getBoundingClientRect().top + scrollY;
